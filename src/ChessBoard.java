@@ -4,8 +4,11 @@ import java.util.Random;
 
 public class ChessBoard {
     private final int size;
-    private ArrayList<Integer[][]> solutions;
+    private ArrayList<int[][]> solutions;
     public final int[][] board;
+    public boolean done;
+    private int r;
+    private int c;
 
     public ChessBoard(int size) {
         this.size = size;
@@ -15,7 +18,12 @@ public class ChessBoard {
     public void run() {
         clearBoard();
         this.solutions = new ArrayList<>();
-        backtrack(0, 0);
+        this.done = false;
+        this.r = 0;
+        this.c = 0;
+        while (!done) {
+            backtrack(r, c);
+        }
     }
 
     private void clearBoard() {
@@ -40,6 +48,7 @@ public class ChessBoard {
             // if last queen on edge and last row == 0
             else if (row - 1 == 0) {
                 System.out.println("done.");
+                this.done = true;
             }
         }
         // this spot is unsafe, but more columns are available in the same row:
@@ -49,7 +58,16 @@ public class ChessBoard {
         // this spot is safe, and it is the last row:
         else if (row == size - 1) {
             addQueen(row, column);
-            System.out.println(this.toString());
+            solutions.add(this.board);
+            System.out.println(solutions.size()+"\n"+this);
+            if (column < size - 1) {
+                this.r = row;
+                this.c = removeQueen(row) + 1;
+            } else {
+                removeQueen(row);
+                this.r = row - 1;
+                this.c = removeQueen(row - 1) + 1;
+            }
         }
         // this spot is safe, but not last row:
         else {
@@ -65,31 +83,14 @@ public class ChessBoard {
         // remove her threats
         int i = 1;
         while (row + i < size) {
-            /*
-            // can go up?
-            if (row - i >= 0) {
-                board[row - i][column]--;
-                //can go left?
-                if (column - i >= 0) {
-                    board[row - i][column - i]--;
-                }
-                //can go right?
-                if (column + i < size) {
-                    board[row - i][column + i]--;
-                }
+            board[row + i][column]--;
+            //can go left?
+            if (column - i >= 0) {
+                board[row + i][column - i]--;
             }
-             */
-            //can go down?
-            if (row + i < size) {
-                board[row + i][column]--;
-                //can go left?
-                if (column - i >= 0) {
-                    board[row + i][column - i]--;
-                }
-                //can go right?
-                if (column + i < size) {
-                    board[row + i][column + i]--;
-                }
+            //can go right?
+            if (column + i < size) {
+                board[row + i][column + i]--;
             }
             i++;
         }
@@ -102,52 +103,29 @@ public class ChessBoard {
                 return column;
             }
         }
-        return 0;
+        return -1;
     }
 
     public void addQueen(int row, int column) {
         board[row][column] = -1;
         int i = 1;
         while (row + i < size) {
-            /*
-            // can go up?
-            if (row - i >= 0) {
-                board[row - i][column]++;
-                //can go left?
-                if (column - i >= 0) {
-                    board[row - i][column - i]++;
-                }
-                //can go right?
-                if (column + i < size - 1) {
-                    board[row - i][column + i]++;
-                }
+            board[row + i][column]++;
+            //can go left?
+            if (column - i >= 0) {
+                board[row + i][column - i]++;
             }
-             */
-            //can go down?
-            if (row + i < size) {
-                board[row + i][column]++;
-                //can go left?
-                if (column - i >= 0) {
-                    board[row + i][column - i]++;
-                }
-                //can go right?
-                if (column + i < size) {
-                    board[row + i][column + i]++;
-                }
+            //can go right?
+            if (column + i < size) {
+                board[row + i][column + i]++;
             }
             i++;
         }
     }
 
-    private boolean threatened(int row, int column) {
-        Random r = new Random();
-        return r.nextBoolean();
-    }
-
     @Override
     public String toString() {
         String ret = "";
-        ret = ret.concat("\n");
         for (int row = 0; row < board.length; row++) {
             for (int column = 0; column < board[row].length; column++) {
                 if (board[row][column] == -1) {

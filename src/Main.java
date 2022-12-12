@@ -2,8 +2,11 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
+        /*
         QueenViewer viewer = new QueenViewer(1000);
         viewer.makeFrame();
+
+         */
         ChessBoard board = new ChessBoard(4);
         System.out.println(board.toString());
         board.addQueen(0, 1);
@@ -36,6 +39,5 @@ public class Main {
         System.out.println(Arrays.toString(newBoard.board[5]));
         System.out.println(Arrays.toString(newBoard.board[6]));
         System.out.println(Arrays.toString(newBoard.board[7]));
-
     }
 }
