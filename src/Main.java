@@ -26,12 +26,16 @@ public class Main {
         [-1,  2,  2,  2]
         [ 1,  3, -1,  1]
          */
-        ChessBoard newBoard = new ChessBoard(4);
+        ChessBoard newBoard = new ChessBoard(8);
         newBoard.run();
         System.out.println(Arrays.toString(newBoard.board[0]));
         System.out.println(Arrays.toString(newBoard.board[1]));
         System.out.println(Arrays.toString(newBoard.board[2]));
         System.out.println(Arrays.toString(newBoard.board[3]));
+        System.out.println(Arrays.toString(newBoard.board[4]));
+        System.out.println(Arrays.toString(newBoard.board[5]));
+        System.out.println(Arrays.toString(newBoard.board[6]));
+        System.out.println(Arrays.toString(newBoard.board[7]));
 
     }
 }

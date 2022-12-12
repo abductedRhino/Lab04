@@ -25,7 +25,6 @@ public class ChessBoard {
     }
 
     public void backtrack(int row, int column) {
-        System.out.println(this);
         boolean danger = board[row][column] > 0;
         // no save spot in this row:
         if (column == size - 1 && danger) {
@@ -65,7 +64,8 @@ public class ChessBoard {
         board[row][column] = 0;
         // remove her threats
         int i = 1;
-        while (row - i >= 0 || row + i < size) {
+        while (row + i < size) {
+            /*
             // can go up?
             if (row - i >= 0) {
                 board[row - i][column]--;
@@ -78,6 +78,7 @@ public class ChessBoard {
                     board[row - i][column + i]--;
                 }
             }
+             */
             //can go down?
             if (row + i < size) {
                 board[row + i][column]--;
@@ -107,7 +108,8 @@ public class ChessBoard {
     public void addQueen(int row, int column) {
         board[row][column] = -1;
         int i = 1;
-        while (row - i >= 0 || row + i < size) {
+        while (row + i < size) {
+            /*
             // can go up?
             if (row - i >= 0) {
                 board[row - i][column]++;
@@ -120,6 +122,7 @@ public class ChessBoard {
                     board[row - i][column + i]++;
                 }
             }
+             */
             //can go down?
             if (row + i < size) {
                 board[row + i][column]++;
