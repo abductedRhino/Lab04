@@ -1,8 +1,13 @@
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Random;
 
 public class ChessBoard {
+
+    private JFrame frame;
+    private JPanel panel;
+    private Dimension dimension;
     private final int size;
     private ArrayList<int[][]> solutions;
     public final int[][] board;
@@ -10,9 +15,10 @@ public class ChessBoard {
     private int r;
     private int c;
 
-    public ChessBoard(int size) {
-        this.size = size;
-        this.board = new int[size][size];
+    public ChessBoard(int chessBoardSize, int GUISize) {
+        this.dimension = new Dimension(GUISize, GUISize);
+        this.size = chessBoardSize;
+        this.board = new int[chessBoardSize][chessBoardSize];
     }
 
     public void run() {
@@ -22,6 +28,7 @@ public class ChessBoard {
         this.r = 0;
         this.c = 0;
         while (!done) {
+            display();
             backtrack(r, c);
         }
     }
@@ -33,6 +40,7 @@ public class ChessBoard {
     }
 
     public void backtrack(int row, int column) {
+        panel.repaint();
         boolean danger = board[row][column] > 0;
         // no save spot in this row:
         if (column == size - 1 && danger) {
@@ -123,6 +131,43 @@ public class ChessBoard {
         }
     }
 
+    public void display() {
+        frame = new JFrame();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        panel = new JPanel() {
+            @Override
+            public void paint(Graphics g) {
+                super.paint(g);
+                drawChessBoard((Graphics2D) g);
+            }
+        };
+        frame.setLayout(new BorderLayout());
+        frame.add(panel, BorderLayout.CENTER);
+        frame.pack();
+        frame.setSize(dimension.width, dimension.height+frame.getContentPane().getHeight());
+        frame.setResizable(false);
+        frame.setVisible(true);
+    }
+
+    private void drawChessBoard(Graphics2D g) {
+        int fieldSize = (int) Math.round((double) panel.getHeight() / this.size);
+        Point upperLeft = new Point(0, 0);
+        Color lightField = Color.LIGHT_GRAY;
+        Color darkField = Color.DARK_GRAY;
+        g.setColor(lightField);
+        for (int row = upperLeft.y; row < panel.getHeight(); row += fieldSize) {
+            for (int col = upperLeft.x; col < panel.getHeight(); col += fieldSize) {
+                g.fillRect(col, row, fieldSize, fieldSize);
+                g.setColor(g.getColor() == lightField ? darkField : lightField);
+            }
+            g.setColor(g.getColor() == lightField ? darkField : lightField);
+        }
+        g.setColor(Color.CYAN);
+        for (int row = 0; row < board.length; row++) {
+
+        }
+    }
+
     @Override
     public String toString() {
         String ret = "";
@@ -139,4 +184,7 @@ public class ChessBoard {
         return ret;
     }
 
+    public int getWidth() {
+        return this.size;
+    }
 }

@@ -3,11 +3,14 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
         /*
-        QueenViewer viewer = new QueenViewer(1000);
-        viewer.makeFrame();
+
+        QueenViewer viewer = new QueenViewer(8, 800);
+        viewer.display();
 
          */
-        ChessBoard board = new ChessBoard(4);
+
+
+        ChessBoard board = new ChessBoard(4,800);
         System.out.println(board.toString());
         board.addQueen(0, 1);
         board.addQueen(1, 3);
@@ -29,8 +32,9 @@ public class Main {
         [-1,  2,  2,  2]
         [ 1,  3, -1,  1]
          */
-        ChessBoard newBoard = new ChessBoard(8);
+        ChessBoard newBoard = new ChessBoard(8,800);
         newBoard.run();
+        newBoard.display();
         System.out.println(Arrays.toString(newBoard.board[0]));
         System.out.println(Arrays.toString(newBoard.board[1]));
         System.out.println(Arrays.toString(newBoard.board[2]));
