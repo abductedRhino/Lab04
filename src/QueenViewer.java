@@ -16,7 +16,7 @@ public class QueenViewer {
         frame.setResizable(false);
         frame.setVisible(true);
     }
-    private void drawCheckerBoard(int size) {
+    private void drawChessBoard(int size) {
 
     }
 }
