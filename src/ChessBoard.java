@@ -11,6 +11,7 @@ public class ChessBoard {
     private final int size;
     private ArrayList<int[][]> solutions;
     public final int[][] board;
+    public int[] queens;
     public boolean done;
     private int r;
     private int c;
@@ -19,6 +20,7 @@ public class ChessBoard {
         this.dimension = new Dimension(GUISize, GUISize);
         this.size = chessBoardSize;
         this.board = new int[chessBoardSize][chessBoardSize];
+        this.queens = new int[chessBoardSize];
     }
 
     public void run() {
@@ -116,6 +118,7 @@ public class ChessBoard {
 
     public void addQueen(int row, int column) {
         board[row][column] = -1;
+        queens[row] = column;
         int i = 1;
         while (row + i < size) {
             board[row + i][column]++;
@@ -138,7 +141,11 @@ public class ChessBoard {
             @Override
             public void paint(Graphics g) {
                 super.paint(g);
-                drawChessBoard((Graphics2D) g);
+                try {
+                    drawChessBoard((Graphics2D) g);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
         };
         frame.setLayout(new BorderLayout());
@@ -149,7 +156,8 @@ public class ChessBoard {
         frame.setVisible(true);
     }
 
-    private void drawChessBoard(Graphics2D g) {
+    private void drawChessBoard(Graphics2D g) throws InterruptedException {
+        wait(10);
         int fieldSize = (int) Math.round((double) panel.getHeight() / this.size);
         Point upperLeft = new Point(0, 0);
         Color lightField = Color.LIGHT_GRAY;
@@ -163,8 +171,9 @@ public class ChessBoard {
             g.setColor(g.getColor() == lightField ? darkField : lightField);
         }
         g.setColor(Color.CYAN);
-        for (int row = 0; row < board.length; row++) {
-
+        int half = (int) Math.round((double) fieldSize / 2);
+        for (int queenRow = half, i = 0; queenRow < panel.getHeight() - half; queenRow += fieldSize, i++) {
+            g.fillOval(half+queens[i]*fieldSize,queenRow,20,20);
         }
     }
 
