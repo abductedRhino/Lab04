@@ -172,7 +172,7 @@ public class ChessBoard implements ActionListener {
         }
         g.setColor(Color.CYAN);
         int half = (int) Math.round((double) fieldSize / 2);
-        for (int queenRow = half, i = 0; queenRow < panel.getHeight() - half; queenRow += fieldSize, i++) {
+        for (int queenRow = half, i = 0; queenRow <= panel.getHeight(); queenRow += fieldSize, i++) {
             g.fillOval(half+queens[i]*fieldSize,queenRow,20,20);
         }
     }
