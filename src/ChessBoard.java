@@ -1,9 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class ChessBoard {
+public class ChessBoard implements ActionListener {
 
     private JFrame frame;
     private JPanel panel;
@@ -15,6 +17,8 @@ public class ChessBoard {
     public boolean done;
     private int r;
     private int c;
+    private int t;
+    private Timer timer;
 
     public ChessBoard(int chessBoardSize, int GUISize) {
         this.dimension = new Dimension(GUISize, GUISize);
@@ -25,14 +29,14 @@ public class ChessBoard {
 
     public void run() {
         clearBoard();
+        this.t = 0;
         this.solutions = new ArrayList<>();
         this.done = false;
         this.r = 0;
         this.c = 0;
-        while (!done) {
-            display();
-            backtrack(r, c);
-        }
+        this.timer = new Timer(500, this);
+        display();
+        backtrack(r, c);
     }
 
     private void clearBoard() {
@@ -42,7 +46,7 @@ public class ChessBoard {
     }
 
     public void backtrack(int row, int column) {
-        panel.repaint();
+        t++;
         boolean danger = board[row][column] > 0;
         // no save spot in this row:
         if (column == size - 1 && danger) {
@@ -141,11 +145,7 @@ public class ChessBoard {
             @Override
             public void paint(Graphics g) {
                 super.paint(g);
-                try {
-                    drawChessBoard((Graphics2D) g);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+                drawChessBoard((Graphics2D) g);
             }
         };
         frame.setLayout(new BorderLayout());
@@ -154,10 +154,10 @@ public class ChessBoard {
         frame.setSize(dimension.width, dimension.height+frame.getContentPane().getHeight());
         frame.setResizable(false);
         frame.setVisible(true);
+        timer.start();
     }
 
-    private void drawChessBoard(Graphics2D g) throws InterruptedException {
-        wait(10);
+    private void drawChessBoard(Graphics2D g) {
         int fieldSize = (int) Math.round((double) panel.getHeight() / this.size);
         Point upperLeft = new Point(0, 0);
         Color lightField = Color.LIGHT_GRAY;
@@ -195,5 +195,14 @@ public class ChessBoard {
 
     public int getWidth() {
         return this.size;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        t++;
+        if (done) {
+            timer.stop();
+        }
+        panel.repaint();
     }
 }
