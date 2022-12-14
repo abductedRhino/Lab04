@@ -1,11 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class ChessBoard implements ActionListener {
+public class ChessBoard {
 
     private JFrame frame;
     private JPanel panel;
@@ -17,8 +15,7 @@ public class ChessBoard implements ActionListener {
     public boolean done;
     private int r;
     private int c;
-    private int t;
-    private Timer timer;
+    private long time;
 
     public ChessBoard(int chessBoardSize, int GUISize) {
         this.dimension = new Dimension(GUISize, GUISize);
@@ -29,14 +26,13 @@ public class ChessBoard implements ActionListener {
 
     public void run() {
         clearBoard();
-        this.t = 0;
         this.solutions = new ArrayList<>();
         this.done = false;
         this.r = 0;
         this.c = 0;
-        this.timer = new Timer(500, this);
         display();
         backtrack(r, c);
+        panel.repaint();
     }
 
     private void clearBoard() {
@@ -46,7 +42,11 @@ public class ChessBoard implements ActionListener {
     }
 
     public void backtrack(int row, int column) {
-        t++;
+        time = System.currentTimeMillis();
+        panel.repaint();
+        while (System.currentTimeMillis() < time + 30) {
+
+        }
         boolean danger = board[row][column] > 0;
         // no save spot in this row:
         if (column == size - 1 && danger) {
@@ -154,7 +154,6 @@ public class ChessBoard implements ActionListener {
         frame.setSize(dimension.width, dimension.height+frame.getContentPane().getHeight());
         frame.setResizable(false);
         frame.setVisible(true);
-        timer.start();
     }
 
     private void drawChessBoard(Graphics2D g) {
@@ -162,18 +161,19 @@ public class ChessBoard implements ActionListener {
         Point upperLeft = new Point(0, 0);
         Color lightField = Color.LIGHT_GRAY;
         Color darkField = Color.DARK_GRAY;
-        g.setColor(lightField);
-        for (int row = upperLeft.y; row < panel.getHeight(); row += fieldSize) {
+        for (int row = upperLeft.y, i = 0; row < panel.getHeight(); row += fieldSize, i++) {
+            g.setColor(i % 2 == 0 ? lightField : darkField);
             for (int col = upperLeft.x; col < panel.getHeight(); col += fieldSize) {
                 g.fillRect(col, row, fieldSize, fieldSize);
                 g.setColor(g.getColor() == lightField ? darkField : lightField);
             }
-            g.setColor(g.getColor() == lightField ? darkField : lightField);
         }
         g.setColor(Color.CYAN);
-        int half = (int) Math.round((double) fieldSize / 2);
-        for (int queenRow = half, i = 0; queenRow <= panel.getHeight(); queenRow += fieldSize, i++) {
-            g.fillOval(half+queens[i]*fieldSize,queenRow,20,20);
+        int queenSize = fieldSize / 2;
+        int offset = queenSize / 2;
+        for (int i = 0; i < queens.length; i++) {
+            int j = queens[i];
+            g.fillOval(offset + (j * fieldSize), offset + (i * fieldSize),queenSize,queenSize);
         }
     }
 
@@ -195,14 +195,5 @@ public class ChessBoard implements ActionListener {
 
     public int getWidth() {
         return this.size;
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        t++;
-        if (done) {
-            timer.stop();
-        }
-        panel.repaint();
     }
 }
