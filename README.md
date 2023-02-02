@@ -64,7 +64,7 @@ Wir fangen in der obersten Zeile an und unterscheiden die Fälle:
         
         —> Königin platzieren und mit der nächsten Zeile weiter machen.
 ```java
-		public void backtrack(int row, int column) {
+public void backtrack(int row, int column) {
         boolean danger = board[row][column] > 0;
         // no save spot in this row:
         if (column == size - 1 && danger) {
@@ -120,7 +120,7 @@ Wir fangen in der obersten Zeile an und unterscheiden die Fälle:
 Jedes Mal, wenn eine Lösung gefunden wird, wird sie in die Konsole gedruckt. Anschließend wird geht der Algorithmus weiter, als wäre die Lösung nicht gültig. 
 
 ```java
-				// this spot is safe, and it is the last row:
+// this spot is safe, and it is the last row:
         else if (row == size - 1) {
             addQueen(row, column);
             solutions.add(this.board);
@@ -139,7 +139,7 @@ Jedes Mal, wenn eine Lösung gefunden wird, wird sie in die Konsole gedruckt. An
 Auf diese Weise geht es so lange weiter, bis die Königin der obersten Zeile dazu aufgefordert wird, eins nach rechts zu rücken, das aber nicht mehr möglich ist. Das funktioniert, weil sie nur dann dazu aufgefordert wird, wenn die unteren Königinnen keinen unbedrohten platz mehr finden:
 
 ```java
-				// no save spot in this row:
+// no save spot in this row:
         if (column == size - 1 && danger) {
 						// (...)
             // if last queen on edge and last row == 0
@@ -200,7 +200,7 @@ private void drawChessBoard(Graphics2D g) {
 Wir haben das mit einem while-loop in der backtrack Methode gelöst, weil wir es nicht mit `wait()` oder Timer geschafft haben.
 
 ```java
-		public void backtrack(int row, int column) {
+public void backtrack(int row, int column) {
         time = System.currentTimeMillis();
         panel.repaint();
         while (System.currentTimeMillis() < time + 30) {
