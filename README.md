@@ -113,9 +113,9 @@ public void backtrack(int row, int column) {
 
 **Now implement a search routine that looks for a state in which the queens don’t threaten each other. If there is a solution, print it to System.out. If there is more than one solution, print them as well.**
 
-![Untitled2](https://github.com/abductedRhino/Lab04/blob/animations/Screenshots/Untitled%202.png)
-![Untitled1](https://github.com/abductedRhino/Lab04/blob/animations/Screenshots/Untitled%201.png) 
-![Untitled](https://github.com/abductedRhino/Lab04/blob/animations/Screenshots/Untitled.png) 
+![Untitled2](https://github.com/abductedRhino/Lab04/blob/main/Screenshots/Untitled%202.png)
+![Untitled1](https://github.com/abductedRhino/Lab04/blob/main/Screenshots/Untitled%201.png) 
+![Untitled](https://github.com/abductedRhino/Lab04/blob/main/Screenshots/Untitled.png) 
 
 Jedes Mal, wenn eine Lösung gefunden wird, wird sie in die Konsole gedruckt. Anschließend wird geht der Algorithmus weiter, als wäre die Lösung nicht gültig. 
 
