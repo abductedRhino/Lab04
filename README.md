@@ -158,8 +158,8 @@ Nein, es funktioniert nur bis 9x9 für alle 352 Lösungen. Dannach gibt es einen
 
 13x13:
 
-![Untitled3](https://github.com/abductedRhino/Lab04/blob/animations/Screenshots/Untitled%203.png) 
-![Untitled4](https://github.com/abductedRhino/Lab04/blob/animations/Screenshots/Untitled%204.png)
+![Untitled3](https://github.com/abductedRhino/Lab04/blob/main/Screenshots/Untitled%203.png) 
+![Untitled4](https://github.com/abductedRhino/Lab04/blob/main/Screenshots/Untitled%204.png)
 
 ### 6.
 
@@ -190,8 +190,8 @@ private void drawChessBoard(Graphics2D g) {
     }
 ```
 
-![Untitled5](https://github.com/abductedRhino/Lab04/blob/animations/Screenshots/Untitled%205.png) 
-![Untitled6](https://github.com/abductedRhino/Lab04/blob/animations/Screenshots/Untitled%206.png)
+![Untitled5](https://github.com/abductedRhino/Lab04/blob/main/Screenshots/Untitled%205.png) 
+![Untitled6](https://github.com/abductedRhino/Lab04/blob/main/Screenshots/Untitled%206.png)
 
 ### 7.
 
