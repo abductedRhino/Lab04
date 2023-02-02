@@ -1,14 +1,14 @@
 public class Sorting {
     public int[] selectionSort(int[] a) {
         for (int i = 0; i < a.length - 1; i++) {
-            int cursor = i;
-            for (int j = i + 1; j < a.length; j++) {
-                if (a[j] < a[cursor]) {
-                    cursor = j;
+            int j = i;
+            for (int k = i + 1; k < a.length; k++) {
+                if (a[k] < a[j]) {
+                    j = k;
                 }
             }
-            int low = a[cursor];
-            a[cursor] = a[i];
+            int low = a[j];
+            a[j] = a[i];
             a[i] = low;
         }
         return a ;
